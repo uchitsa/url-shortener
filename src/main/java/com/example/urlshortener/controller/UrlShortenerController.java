@@ -33,7 +33,7 @@ public class UrlShortenerController {
         if (Objects.nonNull(urlShortener)) {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Location", urlShortener.getOriginalURL());
-            return new ResponseEntity<String>(httpHeaders, HttpStatus.FOUND);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.FOUND);
         } else {
 
             return ResponseEntity.notFound().build();
