@@ -2,6 +2,7 @@ package com.example.urlshortener.controller;
 
 import com.example.urlshortener.model.UrlShortener;
 import com.example.urlshortener.repository.UrlShortenerRepository;
+import com.example.urlshortener.service.EncodeDecodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,15 +16,16 @@ import java.util.Objects;
 public class UrlShortenerController {
 
     private final UrlShortenerRepository repository;
+    private final EncodeDecodeService encodeDecodeService;
 
     @Autowired
-    public UrlShortenerController(UrlShortenerRepository repository) {
+    public UrlShortenerController(UrlShortenerRepository repository, EncodeDecodeService encodeDecodeService) {
         this.repository = repository;
+        this.encodeDecodeService = encodeDecodeService;
     }
 
     @PostMapping(path = "/")
     public String create(String url) {
-
         return null;
     }
 
