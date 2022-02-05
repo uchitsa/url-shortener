@@ -18,8 +18,8 @@ public class UrlShortener {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "url_hash")
-    private String urlHash;
+    @Column(name = "short_url")
+    private String shortUrl;
 
     @Column(name = "original_url")
     private String originalURL;

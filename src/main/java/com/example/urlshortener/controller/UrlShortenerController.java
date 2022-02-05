@@ -1,31 +1,37 @@
 package com.example.urlshortener.controller;
 
-import com.example.urlshortener.repository.UrlShortenerRepository;
+import com.example.urlshortener.dto.LongUrlRequest;
+import com.example.urlshortener.service.UrlShortenerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping
 public class UrlShortenerController {
 
-    private final UrlShortenerRepository repository;
+    private final UrlShortenerService urlShortenerService;
 
     @Autowired
-    public UrlShortenerController(UrlShortenerRepository repository) {
-        this.repository = repository;
+    public UrlShortenerController(UrlShortenerService urlShortenerService) {
+        this.urlShortenerService = urlShortenerService;
     }
 
     @PostMapping(path = "/")
-    public String create(String url){
-
-        return null;
+    public String convertToShortUrl(@RequestBody LongUrlRequest request) {
+        return urlShortenerService.makeShortUrl(request);
     }
 
-    @GetMapping(path = "/{urlHash}")
-    public ResponseEntity redirectToOriginal(@PathVariable("urlHash") String urlHash){
+    @GetMapping(path = "/{urlShort}")
+    public ResponseEntity<String> redirectToOriginal(@PathVariable("urlShort") String urlShort) {
+        String originalUrl = urlShortenerService.getOriginalUrl(urlShort);
 
-        return null;
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .location(URI.create(originalUrl))
+                .build();
     }
 
 }
